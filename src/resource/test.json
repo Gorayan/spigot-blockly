@@ -1,0 +1,26 @@
+{
+  "kind": "flyoutToolbox",
+  "contents": [
+    {
+      "kind": "block",
+      "type": "event_player",
+      "blockxml": null,
+      "gap": null,
+      "disabled": null
+    },
+    {
+      "kind": "block",
+      "type": "sendmessage",
+      "blockxml": null,
+      "gap": null,
+      "disabled": null
+    },
+    {
+      "kind": "block",
+      "type": "text",
+      "blockxml": null,
+      "gap": null,
+      "disabled": null
+    }
+  ]
+}
