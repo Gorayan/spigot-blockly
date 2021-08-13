@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import BlocklyWorkspace from "./component/BlocklyWorkspace";
+import "./blockly/block/Test";
+import {Box} from '@material-ui/core';
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import MainSideBar from "./component/MainSideBar";
+import {useSelector} from "react-redux";
+import {RootState} from "./redux/store";
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            display: "flex"
+        }
+    }),
+);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const value = useSelector<RootState>((state) => state.tab.value)
+    const classes = useStyles();
+
+    return (
+        <Box className={classes.root}>
+            <MainSideBar/>
+            <BlocklyWorkspace hidden={value != 0}/>
+        </Box>
+    );
 }
 
 export default App;
