@@ -33,12 +33,12 @@ jobs:
       - name: Install Dependencies
         run: |
           yarn install
-        working-directory: app
+        working-directory: ./
 
       - name: Build
         run: |
           yarn build
-        working-directory: app
+        working-directory: ./
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
