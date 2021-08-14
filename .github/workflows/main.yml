@@ -37,7 +37,7 @@ jobs:
 
       - name: Build
         run: |
-          yarn build
+          npm run build
         working-directory: ./
           
       - name: Deploy
