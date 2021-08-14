@@ -1,13 +1,12 @@
 import React from 'react';
 import BlocklyWorkspace from "./component/BlocklyWorkspace";
 import "./blockly/block/Test";
-import {Box} from '@material-ui/core';
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
 import MainSideBar from "./component/MainSideBar";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             display: "flex"
@@ -21,10 +20,10 @@ function App() {
     const classes = useStyles();
 
     return (
-        <Box className={classes.root}>
+        <div className={classes.root}>
             <MainSideBar/>
-            <BlocklyWorkspace hidden={value != 0}/>
-        </Box>
+            <BlocklyWorkspace hidden={value !== 0}/>
+        </div>
     );
 }
 

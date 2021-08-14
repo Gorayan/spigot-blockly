@@ -12,11 +12,6 @@ class BlocklyWorkspace extends React.Component<Props> {
     private blocklyDivRef: React.RefObject<HTMLDivElement> = React.createRef();
     public workspace: WorkspaceSvg | undefined;
 
-
-    constructor(props: Props) {
-        super(props);
-    }
-
     componentDidMount() {
 
         if (this.blocklyDivRef.current === null) {
