@@ -1,9 +1,9 @@
-import {IconButton, Paper, Tooltip } from "@material-ui/core"
+import {IconButton, Tooltip} from "@material-ui/core"
 import {createStyles, makeStyles} from "@material-ui/core/styles"
 import Highlight from 'react-highlight'
 import "highlight.js/styles/a11y-dark.css"
 import clsx from 'clsx';
-import { FileCopy } from "@material-ui/icons";
+import {FileCopy} from "@material-ui/icons";
 import CopyToClipboard from "react-copy-to-clipboard";
 import {useSelector} from "react-redux";
 import {RootState} from "../redux/store";

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 import {spigotGenerator} from "../../blockly/generator/generator";
 import {WorkspaceSvg} from "blockly";
 

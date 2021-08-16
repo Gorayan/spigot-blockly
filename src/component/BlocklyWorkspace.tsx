@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import "./BlocklyWorkspace.css";
 import toolboxJson from "../resource/test.json"
-import Blockly, {WorkspaceSvg} from "blockly";
+import Blockly from "blockly";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import {setWorkspace} from "../redux/workspace/slice";
