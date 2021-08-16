@@ -3,7 +3,7 @@
   "contents": [
     {
       "kind": "block",
-      "type": "event_player",
+      "type": "get_player",
       "blockxml": null,
       "gap": null,
       "disabled": null
@@ -18,6 +18,13 @@
     {
       "kind": "block",
       "type": "text",
+      "blockxml": null,
+      "gap": null,
+      "disabled": null
+    },
+    {
+      "kind": "block",
+      "type": "set_gamemode",
       "blockxml": null,
       "gap": null,
       "disabled": null

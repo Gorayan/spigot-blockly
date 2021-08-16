@@ -26,7 +26,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         "type": "sendmessage",
-        "message0": "%1 に %2 とメッセージを送る",
+        "message0": "%1 に メッセージ %2 を送る",
         "args0": [
             {
                 "type": "input_value",
