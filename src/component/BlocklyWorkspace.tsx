@@ -1,41 +1,44 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./BlocklyWorkspace.css";
 import toolboxJson from "../resource/test.json"
 import Blockly, {WorkspaceSvg} from "blockly";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../redux/store";
+import {setWorkspace} from "../redux/workspace/slice";
 
 interface Props {
     hidden: boolean
 }
 
-class BlocklyWorkspace extends React.Component<Props> {
+function BlocklyWorkspace(props: Props) {
 
-    private blocklyDivRef: React.RefObject<HTMLDivElement> = React.createRef();
-    public workspace: WorkspaceSvg | undefined;
+    const blocklyDivRef: React.RefObject<HTMLDivElement> = React.createRef();
 
-    componentDidMount() {
+    const dispatch = useDispatch<AppDispatch>();
 
-        if (this.blocklyDivRef.current === null) {
+    useEffect(() => {
+
+        if (blocklyDivRef.current === null) {
             return;
         }
 
-        if (this.blocklyDivRef.current.hasChildNodes()) {
+        if (blocklyDivRef.current.hasChildNodes()) {
             return;
         }
 
-        this.workspace = Blockly.inject(this.blocklyDivRef.current, {
+        const workspace = Blockly.inject(blocklyDivRef.current, {
             toolbox: toolboxJson,
         });
 
-    }
+        dispatch(setWorkspace(workspace))
 
-    render() {
+    })
 
-        return (
-            <div className="workspace" hidden={this.props.hidden} >
-                <div ref={this.blocklyDivRef} className="blocklyDiv" />
-            </div>
-        );
-    }
+    return (
+        <div className="workspace" hidden={props.hidden} >
+            <div ref={blocklyDivRef} className="blocklyDiv" />
+        </div>
+    );
 }
 
 export default BlocklyWorkspace;

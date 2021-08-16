@@ -1,10 +1,12 @@
-import React from 'react';
-import BlocklyWorkspace from "./component/BlocklyWorkspace";
-import "./blockly/block/Test";
-import {createStyles, makeStyles} from "@material-ui/core/styles";
-import MainSideBar from "./component/MainSideBar";
-import {useSelector} from "react-redux";
-import {RootState} from "./redux/store";
+import React from 'react'
+import BlocklyWorkspace from "./component/BlocklyWorkspace"
+import "./blockly/block/test"
+import "./blockly/block/player"
+import {createStyles, makeStyles} from "@material-ui/core/styles"
+import MainSideBar from "./component/MainSideBar"
+import {useSelector} from "react-redux"
+import {RootState} from "./redux/store"
+import Code from "./component/Code"
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -23,6 +25,7 @@ function App() {
         <div className={classes.root}>
             <MainSideBar/>
             <BlocklyWorkspace hidden={value !== 0}/>
+            <Code hidden={value !== 1}/>
         </div>
     );
 }

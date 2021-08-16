@@ -3,8 +3,9 @@ import {Description, Extension, GitHub, Twitter} from "@material-ui/icons";
 import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
-import {setTabValue} from "../redux/slice";
+import {setTabValue} from "../redux/tab/slice";
 import {AppDispatch, RootState} from "../redux/store";
+import {generate} from "../redux/workspace/slice";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -45,7 +46,7 @@ function SocialMedia(props: SocialMediaProps) {
     const classes = useStyles();
     
     return (
-        <Link href={props.href} color="textSecondary">
+        <Link href={props.href} color="textSecondary" target="_blank" rel="noopener">
             <div className={classes.socialmedia_icon}>
                 {props.icon}
             </div>
@@ -70,11 +71,11 @@ function MainSideBar() {
                 orientation="vertical"
             >
                 <Tab label="Block" icon={<Extension/>} className={classes.tab}/>
-                <Tab label="Code" icon={<Description/>} className={classes.tab}/>
+                <Tab label="Code" icon={<Description/>} className={classes.tab} onClick={() => dispatch(generate())}/>
             </Tabs>
             <div className={classes.socailmedias}>
-                <SocialMedia href="https://github.com/" icon={<GitHub fontSize="large"/>}/>
-                <SocialMedia href="https://twitter.com/" icon={<Twitter fontSize="large"/>}/>
+                <SocialMedia href="https://github.com/Gorayan/spigot-blockly" icon={<GitHub fontSize="large"/>}/>
+                <SocialMedia href="https://twitter.com/Gorayan_kun" icon={<Twitter fontSize="large"/>}/>
             </div>
         </div>
     );
