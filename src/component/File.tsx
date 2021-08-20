@@ -97,7 +97,7 @@ export default function FolderList(props: Props) {
 
     files.forEach(value => {
         list_items.push(
-            <ListItem className={classes.listitem}>
+            <ListItem className={classes.listitem} key={value.id}>
                 <ListItemIcon>
                     <InsertDriveFile />
                 </ListItemIcon>
@@ -121,7 +121,7 @@ export default function FolderList(props: Props) {
                 </IconButton>
             </ListItem>
         )
-        list_items.push(<Divider/>)
+        list_items.push(<Divider key={value.id + "_divider"}/>)
     })
 
     return (
