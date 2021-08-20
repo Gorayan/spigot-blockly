@@ -19,10 +19,7 @@ const useStyles = makeStyles((theme) =>
             maxWidth: "720px",
         },
         root: {
-            width: "calc(100vw - 120px)",
-            minHeight: "100vh",
             background: theme.palette.background.default,
-            marginLeft: 120
         },
         buttons: {
             display: "flex",

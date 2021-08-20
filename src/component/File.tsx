@@ -39,14 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: theme.shape.borderRadius,
         },
         root: {
-            width: "calc(100vw - 120px)",
-            minHeight: "100vh",
             background: theme.palette.background.default,
             "& .MuiList-padding": {
                 paddingTop: 0,
                 paddingBottom: 0
             },
-            marginLeft: 120
         },
         listitem: {
             "&:hover": {

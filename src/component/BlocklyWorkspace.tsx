@@ -1,16 +1,27 @@
 import React, {useEffect} from "react";
-import "./BlocklyWorkspace.css";
 import toolboxJson from "../resource/test.json"
 import Blockly from "blockly";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
 import {FileWorkspace, setWorkspace} from "../redux/workspace/slice";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
 
 interface Props {
     hidden: boolean
 }
 
+const useStyles = makeStyles(() =>
+    createStyles({
+        blockDiv: {
+            width: "100%",
+            height: "100%"
+        }
+    }),
+);
+
 function BlocklyWorkspace(props: Props) {
+
+    const classes = useStyles()
 
     const blocklyDivRef: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -47,9 +58,7 @@ function BlocklyWorkspace(props: Props) {
     })
 
     return (
-        <div className="workspace" hidden={props.hidden} >
-            <div ref={blocklyDivRef} className="blocklyDiv" />
-        </div>
+        <div ref={blocklyDivRef} className={classes.blockDiv} hidden={props.hidden} />
     );
 }
 
