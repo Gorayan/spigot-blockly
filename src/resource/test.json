@@ -1,33 +1,33 @@
 {
-  "kind": "flyoutToolbox",
+  "kind": "categoryToolbox",
   "contents": [
     {
-      "kind": "block",
-      "type": "get_player",
-      "blockxml": null,
-      "gap": null,
-      "disabled": null
+      "kind": "category",
+      "name": "Player",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "get_player"
+        },
+        {
+          "kind": "block",
+          "type": "sendmessage"
+        },
+        {
+          "kind": "block",
+          "type": "set_gamemode"
+        }
+      ]
     },
     {
-      "kind": "block",
-      "type": "sendmessage",
-      "blockxml": null,
-      "gap": null,
-      "disabled": null
-    },
-    {
-      "kind": "block",
-      "type": "text",
-      "blockxml": null,
-      "gap": null,
-      "disabled": null
-    },
-    {
-      "kind": "block",
-      "type": "set_gamemode",
-      "blockxml": null,
-      "gap": null,
-      "disabled": null
+      "kind": "category",
+      "name": "Other",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "text"
+        }
+      ]
     }
   ]
 }

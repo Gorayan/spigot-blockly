@@ -1,9 +1,9 @@
 import {Link, Tab, Tabs} from "@material-ui/core";
-import {Description, Extension, GitHub, Twitter} from "@material-ui/icons";
+import {Description, Extension, Folder, GitHub, Twitter} from "@material-ui/icons";
 import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
-import {setTabValue} from "../redux/tab/slice";
+import {setTabValue} from "../redux/view/slice";
 import {AppDispatch, RootState} from "../redux/store";
 import {generate} from "../redux/workspace/slice";
 
@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
             height: "100vh",
             justifyContent: "space-between",
             display: "flex",
-            flexDirection: "column"
+            flexDirection: "column",
+            position: "fixed",
+            top: 0
         },
         tab: {
             "&:hover": {
@@ -58,7 +60,7 @@ function MainSideBar() {
 
     const classes = useStyles();
 
-    const value = useSelector<RootState>((state) => state.tab.value)
+    const value = useSelector<RootState>((state) => state.view.tab_value)
     const dispatch = useDispatch<AppDispatch>();
 
     return (
@@ -72,6 +74,7 @@ function MainSideBar() {
             >
                 <Tab label="Block" icon={<Extension/>} className={classes.tab}/>
                 <Tab label="Code" icon={<Description/>} className={classes.tab} onClick={() => dispatch(generate())}/>
+                <Tab label="File" icon={<Folder/>} className={classes.tab}/>
             </Tabs>
             <div className={classes.socailmedias}>
                 <SocialMedia href="https://github.com/Gorayan/spigot-blockly" icon={<GitHub fontSize="large"/>}/>

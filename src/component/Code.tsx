@@ -14,15 +14,15 @@ interface Props {
 
 const useStyles = makeStyles((theme) =>
     createStyles({
-        code: {
-            marginLeft: theme.spacing(8),
-            width: "720px",
-            maxHeight: "100vh",
+        content: {
+            margin: "auto",
+            maxWidth: "720px",
         },
         root: {
             width: "calc(100vw - 120px)",
-            height: "100vh",
-            background: theme.palette.background.default
+            minHeight: "100vh",
+            background: theme.palette.background.default,
+            marginLeft: 120
         },
         buttons: {
             display: "flex",
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
             marginTop: theme.spacing(2),
             flexDirection: "row-reverse"
         },
-        codeContent: {
+        code: {
             borderRadius: "4px"
         }
     }),
@@ -44,7 +44,7 @@ function Code(props: Props) {
 
     return (
         <div className={classes.root} hidden={props.hidden}>
-            <div className={classes.code}>
+            <div className={classes.content}>
                 <div className={classes.buttons}>
                     <CopyToClipboard text={code}>
                         <Tooltip title="Copy">
@@ -54,7 +54,7 @@ function Code(props: Props) {
                         </Tooltip>
                     </CopyToClipboard>
                 </div>
-                <Highlight className={clsx("java", classes.codeContent)}>
+                <Highlight className={clsx("java", classes.code)}>
                     {code}
                 </Highlight>
             </div>

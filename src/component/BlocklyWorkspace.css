@@ -1,6 +1,7 @@
 .workspace {
     width: calc(100vw - 120px);
     height: 100vh;
+    margin-left: 120px;
 }
 .blocklyDiv {
     width: 100%;
