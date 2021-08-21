@@ -7,14 +7,7 @@ import {useState} from "react";
 
 export default function SaveDialog() {
 
-    const initailName = useSelector<RootState, string>((state) => {
-        const file = state.workspace.files.find(f => f.id === state.workspace.opening_file)
-        if (file === undefined) {
-            return ""
-        } else {
-            return file.name
-        }
-    })
+    const initailName = useSelector<RootState, string>(state => state.workspace.handle_file.name)
     const [name, setName] = useState(initailName)
     const open = useSelector<RootState, boolean>((state) => state.view.save_open)
     const dispatch = useDispatch<AppDispatch>();

@@ -16,7 +16,7 @@ import {Delete, Edit, InsertDriveFile, MoodBad, Save} from "@material-ui/icons";
 import SaveDialog from "./dialog/SaveDialog";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
-import {setDeleteOpen, setSaveOpen, setSwitchOpen, setTabValue} from "../redux/view/slice";
+import {setDeleteOpen, setSaveOpen, setSwitchOpen} from "../redux/view/slice";
 import DeleteDialog from "./dialog/DeleteDialog";
 import {FileWorkspace, selectFile} from "../redux/workspace/slice";
 import {useState} from "react";
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function FolderList(props: Props) {
     const classes = useStyles()
 
-    const opening_file = useSelector<RootState, string|undefined>(state => state.workspace.opening_file)
+    const opening_file = useSelector<RootState, FileWorkspace|undefined>(state => state.workspace.handle_file)
     const [searchWord, setSearchWord] = useState("")
     const files = [...useSelector<RootState, FileWorkspace[]>(state => state.workspace.files.filter(f => f.name.includes(searchWord)))]
 
@@ -102,7 +102,7 @@ export default function FolderList(props: Props) {
                     <InsertDriveFile />
                 </ListItemIcon>
                 <ListItemText primary={value.name} secondary={value.date} />
-                <ListItemText secondary={value.id === opening_file ? "(current)" : ""} />
+                <ListItemText secondary={opening_file === undefined ? false : opening_file.id === value.id ? "(current)" : ""} />
                 <IconButton
                     aria-label="edit"
                     onClick={() => {
@@ -132,7 +132,8 @@ export default function FolderList(props: Props) {
                         <TextField id="standard-search" label="Search" type="search" onChange={(event) => setSearchWord(event.target.value)} />
                     </form>
                     <div className={classes.buttons}>
-                        <Button variant="outlined" color="inherit" className={classes.button} onClick={() => dispatch(setTabValue(0))} component={Link} to={"/"}>Create</Button>
+                        // TODO create見直し
+                        <Button variant="outlined" color="inherit" className={classes.button} component={Link} to={"/"}>Create</Button>
                         <Button variant="outlined" endIcon={<Save/>} color="primary" className={classes.button} onClick={() => dispatch(setSaveOpen(true))}>Save</Button>
                     </div>
                 </div>

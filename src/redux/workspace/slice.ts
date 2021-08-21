@@ -1,6 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {spigotGenerator} from "../../blockly/generator/generator";
-import Blockly, {WorkspaceSvg} from "blockly";
 
 export interface FileWorkspace {
     id: string
@@ -10,7 +8,6 @@ export interface FileWorkspace {
 }
 
 export interface workspaceState {
-    workspace?: WorkspaceSvg,
     code: string
     selected_file: string
     handle_file: FileWorkspace
@@ -28,35 +25,17 @@ export const workspaceSlice = createSlice({
     name: 'workspace',
     initialState,
     reducers: {
-        reloadHanldeFile: (state) => {
-            if (state.workspace === undefined) {
-                return
-            }
-            state.handle_file = {...state.handle_file, workspace: Blockly.Xml.domToText(state.workspace.createDom())}
-        },
         generate: (state) => {
-            state.code = spigotGenerator.workspaceToCode(state.workspace);
-        },
-        setWorkspace: (state, action) => {
-            state.workspace = action.payload;
+            state.code = "a";
         },
         saveFile: (state, action: PayloadAction<string>) => {
-            const workspace = state.workspace
-            if (workspace === undefined) {
-                return
-            }
-            const dom = workspace.createDom()
-            const workspace_text = Blockly.Xml.domToText(dom)
-            const id = state.handle_file === undefined ? getUniqueStr() : state.handle_file.id
             const date = new Date()
-            const file: FileWorkspace = {
-                id: id,
-                name: action.payload,
+            const file = {
+                ...state.handle_file,
                 date: (date.getFullYear()) + "/" + toDoubleDigits(date.getMonth() + 1) + "/" + toDoubleDigits(date.getDate()) + " " + toDoubleDigits(date.getHours()) + ":" + toDoubleDigits(date.getMinutes()),
-                workspace: workspace_text
+                name: action.payload
             }
-            state.files = [...state.files.filter((file) => file.id !== id), file]
-            state.handle_file = file
+            state.files = [...state.files.filter((f) => file.id !== f.id), file]
         },
         deleteFile: (state, action: PayloadAction<string>) => {
             state.files = state.files.filter((file) => file.id !== action.payload)
@@ -102,7 +81,6 @@ function toDoubleDigits(num: any) {
     return num;
 }
 
-// Action creators are generated for each case reducer function
-export const { generate, setWorkspace, saveFile, deleteFile, selectFile, setHandleFile, setFiles } = workspaceSlice.actions
+export const { generate, saveFile, deleteFile, selectFile, setHandleFile, setFiles } = workspaceSlice.actions
 
 export default workspaceSlice.reducer

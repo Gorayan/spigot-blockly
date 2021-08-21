@@ -6,7 +6,7 @@ import MainSideBar from "./component/MainSideBar"
 import {useDispatch} from "react-redux"
 import {AppDispatch} from "./redux/store"
 import {Redirect, useParams} from "react-router-dom";
-import {FileWorkspace, setFiles, setOpeningFile} from "./redux/workspace/slice";
+import {FileWorkspace, setFiles, setHandleFile} from "./redux/workspace/slice";
 import AppContent from "./component/AppContent";
 
 const useStyles = makeStyles(() =>
@@ -31,18 +31,19 @@ function App() {
     const param = useParams() as {id: string}
     let id = param.id === "create" ? undefined : param.id
 
-    console.log("app render")
-
     const files = readLocalStorage()
+    const handle_file = files.find(f => f.id === id)
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch<AppDispatch>()
+
+    const isValidId = files.find(f => f.id === id) !== undefined
 
     useEffect(() => {
         dispatch(setFiles(files))
-        dispatch(setOpeningFile(id))
+        if (handle_file !== undefined) {
+            dispatch(setHandleFile(handle_file))
+        }
     })
-
-    const isValidId = files.find(f => f.id === id) !== undefined
 
     const classes = useStyles();
 
