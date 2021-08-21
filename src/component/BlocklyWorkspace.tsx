@@ -3,7 +3,7 @@ import toolboxJson from "../resource/test.json"
 import Blockly, {WorkspaceSvg} from "blockly";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
-import {FileWorkspace, setHandleFile, setWorkspace} from "../redux/workspace/slice";
+import {FileWorkspace, setHandleFile} from "../redux/workspace/slice";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 
 interface Props {
@@ -40,10 +40,8 @@ function BlocklyWorkspace(props: Props) {
         blocklyDivRef.current.innerHTML = ""
 
         workspace = Blockly.inject(blocklyDivRef.current, {
-            toolbox: toolboxJson as Blockly.utils.toolbox.ToolboxDefinition,
-        });
-
-        dispatch(setWorkspace(workspace))
+            toolbox: toolboxJson as Blockly.utils.toolbox.ToolboxDefinition
+        })
 
     })
 
