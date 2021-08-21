@@ -6,12 +6,13 @@ import {useSelector} from "react-redux";
 import {RootState} from "../redux/store";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             width: "calc(100vw - 120px)",
             height: "100vh",
-            marginLeft: "120px"
+            marginLeft: "120px",
+            background: theme.palette.background.default
         }
     }),
 );

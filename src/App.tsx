@@ -29,7 +29,7 @@ function readLocalStorage() {
 function App() {
 
     const param = useParams() as {id: string}
-    let id = param.id === "create" ? undefined : param.id
+    let id = param.id
 
     const files = readLocalStorage()
     const handle_file = files.find(f => f.id === id)
@@ -52,7 +52,7 @@ function App() {
                     <AppContent/>
                 </div>
 
-    return isValidId && id !== undefined ? <Redirect to={"/"} /> : app
+    return isValidId || id === "create" ? app : <Redirect to={"/"} />
 }
 
 export default App;

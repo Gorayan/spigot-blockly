@@ -3,12 +3,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../redux/store";
 import {setSaveOpen} from "../../redux/view/slice";
 import {saveFile} from "../../redux/workspace/slice";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function SaveDialog() {
 
     const initailName = useSelector<RootState, string>(state => state.workspace.handle_file.name)
-    const [name, setName] = useState(initailName)
+    const [name, setName] = useState<string>("")
+
+    useEffect(() => {
+        setName(initailName);
+    }, [initailName])
+
     const open = useSelector<RootState, boolean>((state) => state.view.save_open)
     const dispatch = useDispatch<AppDispatch>();
 
@@ -21,11 +26,12 @@ export default function SaveDialog() {
             <DialogTitle id={"form-dialog-save"}>ワークスペースを保存</DialogTitle>
             <DialogContent>
                 <TextField
+                    error={name === ""}
                     defaultValue={initailName}
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Name"
+                    label={name === "" ? "Error" : "Name"}
                     type="text"
                     fullWidth
                     onChange={(event) => {
@@ -39,6 +45,9 @@ export default function SaveDialog() {
                 </Button>
                 <Button
                     onClick={() => {
+                        if (name === "") {
+                            return
+                        }
                         handleClose()
                         dispatch(saveFile(name))
                     }}

@@ -1,7 +1,10 @@
 import {Link, Tab, Tabs} from "@material-ui/core";
 import {Description, Extension, Folder, GitHub, Twitter} from "@material-ui/icons";
-import React, {useState} from "react";
+import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import {useDispatch, useSelector} from "react-redux";
+import {setTabValue} from "../redux/view/slice";
+import {AppDispatch, RootState} from "../redux/store";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -56,7 +59,8 @@ function MainSideBar() {
 
     const classes = useStyles();
 
-    const [value, setValue] = useState(0)
+    const value = useSelector<RootState>((state) => state.view.tab_value)
+    const dispatch = useDispatch<AppDispatch>();
 
     return (
         <div className={classes.root}>
@@ -64,7 +68,7 @@ function MainSideBar() {
                 value={value}
                 indicatorColor="primary"
                 textColor="primary"
-                onChange={(event, value) => setValue(value)}
+                onChange={(event, value) => dispatch(setTabValue(value))}
                 orientation="vertical"
             >
                 <Tab label="Block" icon={<Extension/>} className={classes.tab}/>

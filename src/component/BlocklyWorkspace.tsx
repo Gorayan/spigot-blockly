@@ -3,8 +3,9 @@ import toolboxJson from "../resource/test.json"
 import Blockly, {WorkspaceSvg} from "blockly";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
-import {FileWorkspace, setHandleFile} from "../redux/workspace/slice";
+import {FileWorkspace, setHandleFile, setCode} from "../redux/workspace/slice";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
+import {spigotGenerator} from "../blockly/generator/generator";
 
 interface Props {
     hidden: boolean
@@ -31,6 +32,10 @@ function BlocklyWorkspace(props: Props) {
 
     useEffect(() => {
 
+        if (props.hidden) {
+            return
+        }
+
         if (blocklyDivRef.current === null) {
             return
         }
@@ -41,14 +46,20 @@ function BlocklyWorkspace(props: Props) {
             toolbox: toolboxJson as Blockly.utils.toolbox.ToolboxDefinition
         })
 
+        if (file.workspace !== undefined) {
+            const dom = Blockly.Xml.textToDom(file.workspace)
+            Blockly.Xml.domToWorkspace(dom, workspace)
+        }
+
         workspace.addChangeListener(() => {
             const dom = Blockly.Xml.workspaceToDom(workspace)
             const workspace_text = Blockly.Xml.domToText(dom)
             dispatch(setHandleFile({...file, workspace: workspace_text}))
-            // TODO generator も追加する
+            const code = spigotGenerator.workspaceToCode(workspace)
+            dispatch(setCode(code))
         })
 
-    }, [file.id])
+    }, [file.id, props.hidden])
 
     return (
         <div ref={blocklyDivRef} className={classes.blockDiv} hidden={props.hidden} />

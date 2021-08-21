@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) =>
             margin: "auto",
             maxWidth: "720px",
         },
-        root: {
-            background: theme.palette.background.default,
-        },
         buttons: {
             display: "flex",
             color: theme.palette.text.secondary,
@@ -40,21 +37,19 @@ function Code(props: Props) {
     const code = useSelector<RootState, string>((state) => state.workspace.code)
 
     return (
-        <div className={classes.root} hidden={props.hidden}>
-            <div className={classes.content}>
-                <div className={classes.buttons}>
-                    <CopyToClipboard text={code}>
-                        <Tooltip title="Copy">
-                            <IconButton aria-label="delete">
-                                <FileCopy/>
-                            </IconButton>
-                        </Tooltip>
-                    </CopyToClipboard>
-                </div>
-                <Highlight className={clsx("java", classes.code)}>
-                    {code}
-                </Highlight>
+        <div className={classes.content} hidden={props.hidden}>
+            <div className={classes.buttons}>
+                <CopyToClipboard text={code}>
+                    <Tooltip title="Copy">
+                        <IconButton aria-label="delete">
+                            <FileCopy/>
+                        </IconButton>
+                    </Tooltip>
+                </CopyToClipboard>
             </div>
+            <Highlight className={clsx("java", classes.code)}>
+                {code}
+            </Highlight>
         </div>
     )
 }

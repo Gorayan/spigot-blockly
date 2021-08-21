@@ -1,6 +1,13 @@
 import {Generator} from "blockly";
 
-export const spigotGenerator: any = new Generator("spigot-api");
+interface SpigotGenerator extends Generator{
+    get_player?: any,
+    text?: any,
+    set_gamemode?: any,
+    sendmessage?: any
+}
+
+export const spigotGenerator: SpigotGenerator = new Generator("spigot-api");
 
 spigotGenerator["get_player"] = function(block: any) {
     const text_mcid = block.getFieldValue('mcid');

@@ -18,7 +18,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
 import {setDeleteOpen, setSaveOpen, setSwitchOpen} from "../redux/view/slice";
 import DeleteDialog from "./dialog/DeleteDialog";
-import {FileWorkspace, selectFile} from "../redux/workspace/slice";
+import {createFile, FileWorkspace, saveFile, selectFile, setHandleFile} from "../redux/workspace/slice";
 import {useState} from "react";
 import SwitchDialog from "./dialog/SwitchDialog";
 import {Link} from "react-router-dom";
@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: theme.shape.borderRadius,
         },
         root: {
-            background: theme.palette.background.default,
             "& .MuiList-padding": {
                 paddingTop: 0,
                 paddingBottom: 0
@@ -78,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function FolderList(props: Props) {
     const classes = useStyles()
 
-    const opening_file = useSelector<RootState, FileWorkspace|undefined>(state => state.workspace.handle_file)
+    const opening_file = useSelector<RootState, FileWorkspace>(state => state.workspace.handle_file)
     const [searchWord, setSearchWord] = useState("")
     const files = [...useSelector<RootState, FileWorkspace[]>(state => state.workspace.files.filter(f => f.name.includes(searchWord)))]
 
@@ -102,7 +101,7 @@ export default function FolderList(props: Props) {
                     <InsertDriveFile />
                 </ListItemIcon>
                 <ListItemText primary={value.name} secondary={value.date} />
-                <ListItemText secondary={opening_file === undefined ? false : opening_file.id === value.id ? "(current)" : ""} />
+                <ListItemText secondary={opening_file.id === value.id ? "(current)" : ""} />
                 <IconButton
                     aria-label="edit"
                     onClick={() => {
@@ -124,6 +123,8 @@ export default function FolderList(props: Props) {
         list_items.push(<Divider key={value.id + "_divider"}/>)
     })
 
+    list_items.pop()
+
     return (
         <div className={classes.root} hidden={props.hidden}>
             <div className={classes.content}>
@@ -132,8 +133,13 @@ export default function FolderList(props: Props) {
                         <TextField id="standard-search" label="Search" type="search" onChange={(event) => setSearchWord(event.target.value)} />
                     </form>
                     <div className={classes.buttons}>
-                        // TODO create見直し
-                        <Button variant="outlined" color="inherit" className={classes.button} component={Link} to={"/"}>Create</Button>
+                        <Button variant="outlined" color="inherit" className={classes.button} component={Link} to={"/create"}
+                                onClick={() => {
+                                    dispatch(setHandleFile(createFile()))
+                                    dispatch(saveFile("new file"))
+                                }}>
+                            Create
+                        </Button>
                         <Button variant="outlined" endIcon={<Save/>} color="primary" className={classes.button} onClick={() => dispatch(setSaveOpen(true))}>Save</Button>
                     </div>
                 </div>

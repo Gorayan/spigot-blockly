@@ -4,7 +4,7 @@ export interface FileWorkspace {
     id: string
     name: string,
     date: string,
-    workspace: string
+    workspace?: string
 }
 
 export interface workspaceState {
@@ -25,8 +25,8 @@ export const workspaceSlice = createSlice({
     name: 'workspace',
     initialState,
     reducers: {
-        generate: (state) => {
-            state.code = "a";
+        setCode: (state, action: PayloadAction<string>) => {
+            state.code = action.payload
         },
         saveFile: (state, action: PayloadAction<string>) => {
             const date = new Date()
@@ -36,9 +36,13 @@ export const workspaceSlice = createSlice({
                 name: action.payload
             }
             state.files = [...state.files.filter((f) => file.id !== f.id), file]
+            state.handle_file.name = action.payload
         },
         deleteFile: (state, action: PayloadAction<string>) => {
             state.files = state.files.filter((file) => file.id !== action.payload)
+            if (action.payload === state.handle_file.id) {
+                state.handle_file = createFile()
+            }
         },
         selectFile: (state, action: PayloadAction<string>) => {
             state.selected_file = action.payload
@@ -52,14 +56,13 @@ export const workspaceSlice = createSlice({
     },
 })
 
-function createFile() {
+export function createFile() {
     const id = getUniqueStr()
     const date = new Date()
     const file: FileWorkspace = {
         id: id,
         name: "",
         date: (date.getFullYear()) + "/" + toDoubleDigits(date.getMonth() + 1) + "/" + toDoubleDigits(date.getDate()) + " " + toDoubleDigits(date.getHours()) + ":" + toDoubleDigits(date.getMinutes()),
-        workspace: ""
     }
     return file
 }
@@ -81,6 +84,6 @@ function toDoubleDigits(num: any) {
     return num;
 }
 
-export const { generate, saveFile, deleteFile, selectFile, setHandleFile, setFiles } = workspaceSlice.actions
+export const { setCode, saveFile, deleteFile, selectFile, setHandleFile, setFiles } = workspaceSlice.actions
 
 export default workspaceSlice.reducer
