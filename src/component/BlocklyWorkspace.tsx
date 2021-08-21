@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import toolboxJson from "../resource/test.json"
 import Blockly, {WorkspaceSvg} from "blockly";
 import {useDispatch, useSelector} from "react-redux";
@@ -29,7 +29,7 @@ function BlocklyWorkspace(props: Props) {
 
     const dispatch = useDispatch<AppDispatch>();
 
-    let workspace: WorkspaceSvg
+    const [workspace, setWorkspace] = useState<WorkspaceSvg>()
 
     useEffect(() => {
 
@@ -39,23 +39,28 @@ function BlocklyWorkspace(props: Props) {
 
         blocklyDivRef.current.innerHTML = ""
 
-        workspace = Blockly.inject(blocklyDivRef.current, {
+        const newWorkspace = Blockly.inject(blocklyDivRef.current, {
             toolbox: toolboxJson as Blockly.utils.toolbox.ToolboxDefinition
         })
 
-    })
+        setWorkspace(newWorkspace)
 
-    const clickHandle = () => {
+
+    }, [file.id])
+
+    useEffect(() => {
         if (workspace === undefined) {
             return
         }
+        console.log("file update")
         const dom = Blockly.Xml.workspaceToDom(workspace)
-        dispatch(setHandleFile({...file, workspace: Blockly.Xml.domToText(dom)}))
+        const workspace_text = Blockly.Xml.domToText(dom)
+        dispatch(setHandleFile({...file, workspace: workspace_text}))
         // TODO generator も追加する
-    }
+    }, [workspace])
 
     return (
-        <div ref={blocklyDivRef} className={classes.blockDiv} hidden={props.hidden} onClick={clickHandle} />
+        <div ref={blocklyDivRef} className={classes.blockDiv} hidden={props.hidden} />
     );
 }
 
