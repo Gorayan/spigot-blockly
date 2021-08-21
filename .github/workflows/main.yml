@@ -39,6 +39,8 @@ jobs:
         run: |
           yarn run build
         working-directory: ./
+        env:
+          CI: false
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
