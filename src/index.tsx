@@ -9,7 +9,7 @@ import {BrowserRouter, Redirect, Route} from "react-router-dom";
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter basename="/spigot-blockly">
                 <Route path="/:id" component={App} />
                 <Route path="/" >
                     <Redirect to={"/create"}/>

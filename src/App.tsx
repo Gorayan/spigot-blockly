@@ -52,7 +52,7 @@ function App() {
                     <AppContent/>
                 </div>
 
-    return isValidId || id === "create" ? app : <Redirect to={"/"} />
+    return isValidId || id === "create" ? app : <Redirect to={"./"} />
 }
 
 export default App;
